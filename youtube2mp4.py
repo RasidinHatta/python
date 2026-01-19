@@ -19,7 +19,7 @@ except ImportError:
 class YouTubeDownloader:
     """YouTube video downloader with support for multiple resolutions"""
     
-    def __init__(self, output_dir="downloads"):
+    def __init__(self, output_dir="videos"):
         """
         Initialize the downloader
         
@@ -269,9 +269,9 @@ def get_user_input():
         resolution = 'best'
     
     # Get output directory
-    output = input("\nEnter output directory (press Enter for 'downloads'): ").strip()
+    output = input("\nEnter output directory (press Enter for 'videos'): ").strip()
     if not output:
-        output = 'downloads'
+        output = 'videos'
     
     return {
         'url': url,
@@ -317,8 +317,8 @@ Examples:
                        default='best',
                        help='Resolution to download (e.g., 1080p, 720p, best, all). Default: best')
     parser.add_argument('-o', '--output', 
-                       default='downloads',
-                       help='Output directory. Default: downloads')
+                       default='videos',
+                       help='Output directory. Default: videos')
     parser.add_argument('-f', '--format-id',
                        help='Specific format ID to download')
     parser.add_argument('-l', '--list',
