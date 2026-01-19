@@ -2,6 +2,14 @@
 
 A collection of Python scripts for downloading, trimming, and adjusting video frame rates.
 
+## 🚀 Quick Start
+
+You can run the entire toolkit from a single menu:
+
+```bash
+python main.py
+```
+
 ## Tools Included
 
 ### 1. YouTube Downloader (`youtube2mp4.py`)
