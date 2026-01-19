@@ -50,13 +50,21 @@ def main():
             break
         print(f"Error: File not found: {input_path}")
     
-    # Get output file
-    output_path = input("Enter output video path: ").strip().strip('"')
+    # Get output file suggestion
+    input_dir = os.path.dirname(input_path)
+    input_filename = os.path.basename(input_path)
+    name_part, ext_part = os.path.splitext(input_filename)
+    default_output = os.path.join("videos", f"{name_part}_output_framer{ext_part}")
+    
+    print(f"\nSuggested output: {default_output}")
+    output_path = input(f"Enter output video path (press Enter for default): ").strip().strip('"')
+    
+    if not output_path:
+        output_path = default_output
     
     # If no extension provided, use same as input
     if not os.path.splitext(output_path)[1]:
-        input_ext = os.path.splitext(input_path)[1]
-        output_path += input_ext
+        output_path += ext_part
     
     # Get target FPS
     print("\nCommon frame rates:")
