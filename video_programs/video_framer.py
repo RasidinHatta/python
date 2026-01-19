@@ -50,22 +50,6 @@ def main():
             break
         print(f"Error: File not found: {input_path}")
     
-    # Get output file suggestion
-    input_dir = os.path.dirname(input_path)
-    input_filename = os.path.basename(input_path)
-    name_part, ext_part = os.path.splitext(input_filename)
-    default_output = os.path.join("videos", f"{name_part}_output_framer{ext_part}")
-    
-    print(f"\nSuggested output: {default_output}")
-    output_path = input(f"Enter output video path (press Enter for default): ").strip().strip('"')
-    
-    if not output_path:
-        output_path = default_output
-    
-    # If no extension provided, use same as input
-    if not os.path.splitext(output_path)[1]:
-        output_path += ext_part
-    
     # Get target FPS
     print("\nCommon frame rates:")
     print("  20 FPS - Lower frame rate")
@@ -90,6 +74,23 @@ def main():
             break
         except ValueError:
             print("Error: Please enter a valid number")
+
+    # Get output file suggestion
+    input_filename = os.path.basename(input_path)
+    name_part, ext_part = os.path.splitext(input_filename)
+    # Format target_fps to remove .0 if it's a whole number
+    fps_suffix = int(target_fps) if target_fps.is_integer() else target_fps
+    default_output = os.path.join("videos", f"{name_part}_output_framer_{fps_suffix}fps{ext_part}")
+    
+    print(f"\nSuggested output: {default_output}")
+    output_path = input(f"Enter output video path (press Enter for default): ").strip().strip('"')
+    
+    if not output_path:
+        output_path = default_output
+    
+    # If no extension provided, use same as input
+    if not os.path.splitext(output_path)[1]:
+        output_path += ext_part
     
     # Convert the video
     try:

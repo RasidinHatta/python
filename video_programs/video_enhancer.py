@@ -60,22 +60,6 @@ def main():
             break
         print(f"Error: File not found: {input_path}")
     
-    # Get output file suggestion
-    input_dir = os.path.dirname(input_path)
-    input_filename = os.path.basename(input_path)
-    name_part, ext_part = os.path.splitext(input_filename)
-    default_output = os.path.join("videos", f"{name_part}_output_enhancer{ext_part}")
-    
-    print(f"\nSuggested output: {default_output}")
-    output_path = input(f"Enter output video path (press Enter for default): ").strip().strip('"')
-    
-    if not output_path:
-        output_path = default_output
-    
-    # If no extension provided, use same as input
-    if not os.path.splitext(output_path)[1]:
-        output_path += ext_part
-    
     # Get target Resolution
     print("\nCommon Resolutions:")
     print("  1. 4K   (3840x2160)")
@@ -90,27 +74,51 @@ def main():
     choice = input("\nSelect an option (1-8): ").strip()
     
     width, height, res_name = None, None, None
+    res_suffix = ""
     
     if choice == '1':
         width, height, res_name = 3840, 2160, "4K"
+        res_suffix = "4k"
     elif choice == '2':
         width, height, res_name = 2560, 1440, "2K"
+        res_suffix = "2k"
     elif choice == '3':
         width, height, res_name = 1920, 1080, "1080p"
+        res_suffix = "1080p"
     elif choice == '4':
         width, height, res_name = 1280, 720, "720p"
+        res_suffix = "720p"
     elif choice == '5':
         width, height, res_name = 854, 480, "480p"
+        res_suffix = "480p"
     elif choice == '6':
         width = int(input("Enter target width: ").strip())
+        res_suffix = f"{width}w"
     elif choice == '7':
         height = int(input("Enter target height: ").strip())
+        res_suffix = f"{height}h"
     elif choice == '8':
         width = int(input("Enter target width: ").strip())
         height = int(input("Enter target height: ").strip())
+        res_suffix = f"{width}x{height}"
     else:
         print("Invalid choice. Exiting.")
         return 1
+
+    # Get output file suggestion
+    input_filename = os.path.basename(input_path)
+    name_part, ext_part = os.path.splitext(input_filename)
+    default_output = os.path.join("videos", f"{name_part}_output_enhancer_{res_suffix}{ext_part}")
+    
+    print(f"\nSuggested output: {default_output}")
+    output_path = input(f"Enter output video path (press Enter for default): ").strip().strip('"')
+    
+    if not output_path:
+        output_path = default_output
+    
+    # If no extension provided, use same as input
+    if not os.path.splitext(output_path)[1]:
+        output_path += ext_part
     
     # Resize the video
     try:
