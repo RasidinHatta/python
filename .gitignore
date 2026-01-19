@@ -1,0 +1,16 @@
+# Video outputs
+videos/
+downloads/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+
+# OS specific
+.DS_Store
+Thumbs.db

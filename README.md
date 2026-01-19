@@ -43,6 +43,19 @@ Adjust the frame rate of any video file.
   python video_programs/video_framer.py
   ```
 
+### 4. Resolution Changer (`video_enhancer.py`)
+
+Change the resolution and scale of video files.
+
+- **Features**:
+  - Preset resolutions: 4K, 2K, 1080p, 720p, 480p.
+  - Custom width/height support.
+  - Smart aspect ratio preservation.
+- **Usage**:
+  ```bash
+  python video_programs/video_enhancer.py
+  ```
+
 ## Installation
 
 ### Prerequisites
@@ -67,6 +80,7 @@ pip install -r video_programs/requirements.txt
   - `youtube2mp4.py`: YouTube downloader.
   - `video_cutter.py`: Video trimming tool.
   - `video_framer.py`: FPS conversion tool.
+  - `video_enhancer.py`: Resolution and scaling tool.
   - `requirements.txt`: Python package list.
 
 ## License
