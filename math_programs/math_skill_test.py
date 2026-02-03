@@ -36,7 +36,7 @@ def main():
         a, b, number, result = powerof5()
         
         # Display the result
-        print(f"\nThe result is: {a}{b}^5 = {result}")
+        print(f"\nThe result is: ab^5 = {result}")
         print()
         
         # Get user's guess
