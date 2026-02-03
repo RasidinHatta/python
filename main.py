@@ -1,9 +1,10 @@
 import sys
 import os
 
-# Add video_programs and audio_programs directories to sys.path
+# Add video_programs, audio_programs, and math_programs directories to sys.path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'video_programs'))
 sys.path.append(os.path.join(os.path.dirname(__file__), 'audio_programs'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'math_programs'))
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -90,30 +91,66 @@ def audio_menu():
             print(f"\n❌ An unexpected error occurred: {e}")
             input("\nPress Enter to continue...")
 
+def math_menu():
+    while True:
+        clear_screen()
+        print("=" * 60)
+        print("        MATH SKILL TESTING PROGRAMS")
+        print("=" * 60)
+        print("\nSelect a program to run:")
+        print("  1. 🧮 Power of 5 - Math Skill Test")
+        print("  2. 🔙 Return to Main Menu")
+        print("\n" + "=" * 60)
+        
+        choice = input("\nEnter choice (1-2): ").strip()
+        
+        try:
+            if choice == '1':
+                import math_skill_test
+                math_skill_test.main()
+            elif choice == '2':
+                break
+            else:
+                print("\nInvalid choice. Please try again.")
+            
+            input("\nPress Enter to continue...")
+            
+        except ImportError as e:
+            print(f"\n❌ Error: Could not load the program. {e}")
+            input("\nPress Enter to continue...")
+        except Exception as e:
+            print(f"\n❌ An unexpected error occurred: {e}")
+            input("\nPress Enter to continue...")
+
+
 def main_menu():
     while True:
         clear_screen()
         print("=" * 60)
-        print("        MEDIA PROCESSING SUITE")
+        print("        MEDIA & MATH PROCESSING SUITE")
         print("=" * 60)
         print("\nSelect program type:")
         print("  1. 📹 Video Programs")
         print("  2. 🎧 Audio Programs")
-        print("  3. ❌ Exit")
+        print("  3. 🧮 Math Programs")
+        print("  4. ❌ Exit")
         print("\n" + "=" * 60)
         
-        choice = input("\nEnter choice (1-3): ").strip()
+        choice = input("\nEnter choice (1-4): ").strip()
         
         if choice == '1':
             video_menu()
         elif choice == '2':
             audio_menu()
         elif choice == '3':
+            math_menu()
+        elif choice == '4':
             print("\nGoodbye!")
             sys.exit(0)
         else:
             print("\nInvalid choice. Please try again.")
             input("\nPress Enter to continue...")
+
 
 if __name__ == "__main__":
     main_menu()
