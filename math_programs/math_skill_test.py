@@ -41,18 +41,22 @@ def main():
         
         # Get user's guess
         try:
-            guess_a = int(input("What is the value of 'a'? "))
-            guess_b = int(input("What is the value of 'b'? "))
+            guess_ab = int(input("What is the value of 'ab'? "))
+            
+            # Validate that the input is a valid two-digit number (0-99)
+            if guess_ab < 0 or guess_ab > 99:
+                print("\n⚠ Please enter a number between 0 and 99!")
+                continue
             
             # Check if the guess is correct
             total_questions += 1
             
-            if guess_a == a and guess_b == b:
+            if guess_ab == number:
                 print("\n✓ Correct! Well done!")
                 score += 1
             else:
-                print(f"\n✗ Wrong! The correct answer was: a = {a}, b = {b}")
-                print(f"   ({a}{b})^5 = {number}^5 = {result:,}")
+                print(f"\n✗ Wrong! The correct answer was: ab = {number}")
+                print(f"   {number}^5 = {result:,}")
             
             # Show current score
             print(f"\nYour score: {score}/{total_questions}")
