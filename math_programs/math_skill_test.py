@@ -36,7 +36,7 @@ def main():
         a, b, number, result = powerof5()
         
         # Display the result
-        print(f"\nThe result is: ab^5 = {result}")
+        print(f"\nThe result is: ab^5 = {result:,}")
         print()
         
         # Get user's guess
@@ -52,7 +52,7 @@ def main():
                 score += 1
             else:
                 print(f"\n✗ Wrong! The correct answer was: a = {a}, b = {b}")
-                print(f"   ({a}{b})^5 = {number}^5 = {result}")
+                print(f"   ({a}{b})^5 = {number}^5 = {result:,}")
             
             # Show current score
             print(f"\nYour score: {score}/{total_questions}")
