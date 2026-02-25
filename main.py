@@ -68,16 +68,20 @@ def audio_menu():
         print("=" * 60)
         print("\nSelect a tool to run:")
         print("  1. 🎵 YouTube to MP3 Converter")
-        print("  2. 🔙 Return to Main Menu")
+        print("  2. 🎚️  Audio Converter (Bitrate / Sample Rate / File Size)")
+        print("  3. 🔙 Return to Main Menu")
         print("\n" + "=" * 60)
         
-        choice = input("\nEnter choice (1-2): ").strip()
+        choice = input("\nEnter choice (1-3): ").strip()
         
         try:
             if choice == '1':
                 import youtube2mp3
                 youtube2mp3.main()
             elif choice == '2':
+                import audio_converter
+                audio_converter.main()
+            elif choice == '3':
                 break
             else:
                 print("\nInvalid choice. Please try again.")
