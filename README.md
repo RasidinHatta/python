@@ -25,6 +25,9 @@ Run the entire suite from the central menu:
 python main.py
 ```
 
+**For Windows Users:**
+You can just double-click the `run.bat` file to instantly launch the suite without opening a terminal window manually.
+
 This will launch the interactive **Media & Math Processing Suite** menu, where you can navigate through the Video, Audio, and Math sub-menus.
 
 ---
@@ -38,6 +41,7 @@ A collection of scripts for managing and modifying video files.
 - **Video Trimmer (`video_cutter.py`)**: Precisely cut sections out of video files using timecodes (HH:MM:SS or SS). High-quality output via `libx264`.
 - **FPS Converter (`video_framer.py`)**: Adjust frame rates of existing videos (e.g., to 20, 24, 30, or 60 FPS) for size optimization or cinematic effects.
 - **Resolution Changer (`video_enhancer.py`)**: Change video resolution and scaling. Features standard presets (480p, 720p, 1080p, 2K, 4K) while optionally preserving aspect ratios.
+- **Exo Video Merger (`merge_exo.py`)**: Consolidates and merges hundreds of fragmented `.exo` offline video chunks into a single, playable `.mp4` file.
 
 ### 2. 🎧 Audio Processing Toolkit (`audio_programs/`)
 Utilities explicitly designed for audio extraction and manipulation.
@@ -80,12 +84,15 @@ pip install -r audio_programs/requirements.txt
 
 ```text
 ├── main.py                     # Central menu and entry point
+├── run.bat                     # Windows quick launcher script
 ├── README.md                   # Project documentation
+├── movie/                      # Directory accommodating .exo video chunks
 ├── video_programs/             # Video utilities
 │   ├── youtube2mp4.py
 │   ├── video_cutter.py
 │   ├── video_framer.py
 │   ├── video_enhancer.py
+│   ├── merge_exo.py            # Merges .exo video chunks into MP4
 │   └── requirements.txt
 ├── audio_programs/             # Audio utilities
 │   ├── youtube2mp3.py
