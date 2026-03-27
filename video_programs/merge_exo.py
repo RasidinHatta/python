@@ -26,7 +26,19 @@ def merge_exo_files(target_dir, output_file):
                 
     print(f"\nSuccessfully merged all files into: {output_file}")
 
-if __name__ == "__main__":
-    movie_dir = r"c:\Users\USER\Desktop\dev\python\movie"
-    output_path = r"c:\Users\USER\Desktop\dev\python\merged.mp4"
+def main():
+    print("\n--- Merge .exo Video Files ---")
+    movie_dir = r"movie"
+    
+    output_filename = input("Enter output file name (e.g., merged.mp4) [Default: merged.mp4]: ").strip()
+    if not output_filename:
+        output_filename = "merged.mp4"
+    
+    if not output_filename.endswith(".mp4"):
+        output_filename += ".mp4"
+        
+    output_path = os.path.join(movie_dir, output_filename)
     merge_exo_files(movie_dir, output_path)
+
+if __name__ == "__main__":
+    main()

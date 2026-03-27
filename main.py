@@ -24,25 +24,29 @@ def video_menu():
         print("  2. ✂️  Video Trimmer (Cutter)")
         print("  3. 🎞️  FPS Converter (Frame Rate)")
         print("  4. 📐 Resolution Changer (Enhancer)")
-        print("  5. 🔙 Return to Main Menu")
+        print("  5. 🧩 Merge EXO Files (Chunk Joiner)")
+        print("  6. 🔙 Return to Main Menu")
         print("\n" + "=" * 60)
         
-        choice = input("\nEnter choice (1-5): ").strip()
+        choice = input("\nEnter choice (1-6): ").strip()
         
         try:
             if choice == '1':
-                import youtube2mp4
+                import youtube2mp4  # type: ignore
                 youtube2mp4.main()
             elif choice == '2':
-                import video_cutter
+                import video_cutter  # type: ignore
                 video_cutter.main()
             elif choice == '3':
-                import video_framer
+                import video_framer  # type: ignore
                 video_framer.main()
             elif choice == '4':
-                import video_enhancer
+                import video_enhancer  # type: ignore
                 video_enhancer.main()
             elif choice == '5':
+                import merge_exo  # type: ignore
+                merge_exo.main()
+            elif choice == '6':
                 break
             else:
                 print("\nInvalid choice. Please try again.")
@@ -76,10 +80,10 @@ def audio_menu():
         
         try:
             if choice == '1':
-                import youtube2mp3
+                import youtube2mp3  # type: ignore
                 youtube2mp3.main()
             elif choice == '2':
-                import audio_converter
+                import audio_converter  # type: ignore
                 audio_converter.main()
             elif choice == '3':
                 break
@@ -110,7 +114,7 @@ def math_menu():
         
         try:
             if choice == '1':
-                import math_skill_test
+                import math_skill_test  # type: ignore
                 math_skill_test.main()
             elif choice == '2':
                 break
