@@ -9,7 +9,7 @@ import sys
 import argparse
 from pathlib import Path
 try:
-    import yt_dlp
+    import yt_dlp  # type: ignore
 except ImportError:
     print("Error: yt-dlp is not installed.")
     print("Please install it using: pip install yt-dlp")
@@ -327,21 +327,27 @@ Examples:
     
     args = parser.parse_args()
     
+    url = args.url
+    list_formats = args.list
+    resolution = args.resolution
+    output = args.output
+    format_id = args.format_id
+    
     # If no URL provided, enter interactive mode
-    if not args.url:
+    if not url:
         user_input = get_user_input()
-        args.url = user_input['url']
-        args.list = user_input['list']
-        args.resolution = user_input['resolution'] or args.resolution
-        args.output = user_input['output']
-        args.format_id = user_input['format_id']
+        url = user_input['url']
+        list_formats = user_input['list']
+        resolution = user_input['resolution'] or resolution
+        output = user_input['output']
+        format_id = user_input['format_id']
     
     # Initialize downloader
-    downloader = YouTubeDownloader(output_dir=args.output)
+    downloader = YouTubeDownloader(output_dir=output)
     
     # List formats if requested
-    if args.list:
-        formats, title = downloader.get_available_formats(args.url)
+    if list_formats:
+        formats, title = downloader.get_available_formats(url)
         if formats:
             downloader.display_formats(formats, title)
         else:
@@ -352,15 +358,15 @@ Examples:
     print(f"\n{'='*80}")
     print(f"YouTube Video Downloader")
     print(f"{'='*80}")
-    print(f"URL: {args.url}")
-    print(f"Resolution: {args.resolution}")
-    print(f"Output Directory: {args.output}")
+    print(f"URL: {url}")
+    print(f"Resolution: {resolution}")
+    print(f"Output Directory: {output}")
     print(f"{'='*80}\n")
     
     success = downloader.download_video(
-        url=args.url,
-        resolution=args.resolution,
-        format_id=args.format_id
+        url=url,
+        resolution=resolution,
+        format_id=format_id
     )
     
     if success:

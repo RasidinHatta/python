@@ -8,7 +8,7 @@ import sys
 import argparse
 from pathlib import Path
 try:
-    import yt_dlp
+    import yt_dlp  # type: ignore
 except ImportError:
     print("Error: yt-dlp is not installed.")
     print("Please install it using: pip install yt-dlp")
@@ -125,28 +125,32 @@ def main():
     
     args = parser.parse_args()
     
+    url = args.url
+    quality = args.quality
+    output = args.output
+    
     # If no URL provided, enter interactive mode
-    if not args.url:
+    if not url:
         user_input = get_user_input()
-        args.url = user_input['url']
-        args.quality = user_input['quality']
-        args.output = user_input['output']
+        url = user_input['url']
+        quality = user_input['quality']
+        output = user_input['output']
     
     # Initialize downloader
-    downloader = YouTubeAudioDownloader(output_dir=args.output)
+    downloader = YouTubeAudioDownloader(output_dir=output)
     
     # Download audio
     print(f"\n{'='*80}")
     print(f"YouTube Audio Downloader")
     print(f"{'='*80}")
-    print(f"URL: {args.url}")
-    print(f"Quality: {args.quality}kbps")
-    print(f"Output Directory: {args.output}")
+    print(f"URL: {url}")
+    print(f"Quality: {quality}kbps")
+    print(f"Output Directory: {output}")
     print(f"{'='*80}\n")
     
     success = downloader.download_audio(
-        url=args.url,
-        quality=args.quality
+        url=url,
+        quality=quality
     )
     
     if success:

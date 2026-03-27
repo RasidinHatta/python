@@ -24,8 +24,7 @@ def main():
     print("=" * 50)
     print()
     
-    score = 0
-    total_questions = 0
+    stats = {"score": 0, "total": 0}
     
     while True:
         print("\n" + "-" * 50)
@@ -49,17 +48,17 @@ def main():
                 continue
             
             # Check if the guess is correct
-            total_questions += 1
+            stats["total"] += 1
             
             if guess_ab == number:
                 print("\n✓ Correct! Well done!")
-                score += 1
+                stats["score"] += 1
             else:
                 print(f"\n✗ Wrong! The correct answer was: ab = {number}")
                 print(f"   {number}^5 = {result:,}")
             
             # Show current score
-            print(f"\nYour score: {score}/{total_questions}")
+            print(f"\nYour score: {stats['score']}/{stats['total']}")
             
         except ValueError:
             print("\n⚠ Invalid input! Please enter numbers only.")
@@ -76,10 +75,10 @@ def main():
     print("\n" + "=" * 50)
     print("Game Over!")
     print("=" * 50)
-    print(f"Final Score: {score}/{total_questions}")
+    print(f"Final Score: {stats['score']}/{stats['total']}")
     
-    if total_questions > 0:
-        percentage = (score / total_questions) * 100
+    if stats['total'] > 0:
+        percentage = (float(stats['score']) / float(stats['total'])) * 100.0
         print(f"Accuracy: {percentage:.1f}%")
         
         if percentage == 100:

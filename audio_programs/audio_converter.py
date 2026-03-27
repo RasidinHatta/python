@@ -28,7 +28,7 @@ def check_ffmpeg():
 def check_pydub():
     """Import pydub or print install hint."""
     try:
-        from pydub import AudioSegment          # noqa: F401
+        from pydub import AudioSegment  # type: ignore # noqa: F401
         return True
     except ImportError:
         return False
@@ -161,10 +161,11 @@ def convert_audio(
             stderr=subprocess.STDOUT,
             text=True,
         )
-        for line in process.stdout:
-            # Print ffmpeg progress lines (size= ... time= ...)
-            if "size=" in line or "time=" in line:
-                print(f"\r  {line.strip():<76}", end="", flush=True)
+        if process.stdout is not None:
+            for line in process.stdout:  # type: ignore
+                # Print ffmpeg progress lines (size= ... time= ...)
+                if "size=" in line or "time=" in line:
+                    print(f"\r  {line.strip():<76}", end="", flush=True)
         process.wait()
         print()  # newline after progress
         return process.returncode == 0
@@ -183,6 +184,7 @@ def get_input_file() -> Path:
         if p.is_file():
             return p
         print(f"  ❌ File not found: {p}")
+    raise AssertionError("Unreachable")
 
 
 def get_output_path(input_path: Path, fmt: str) -> Path:

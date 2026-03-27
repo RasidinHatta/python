@@ -1,4 +1,4 @@
-from moviepy.video.io.VideoFileClip import VideoFileClip
+from moviepy.video.io.VideoFileClip import VideoFileClip  # type: ignore
 import os
 
 def resize_video(input_path, output_path, width=None, height=None, res_name=None):

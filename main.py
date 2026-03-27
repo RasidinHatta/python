@@ -159,6 +159,21 @@ def main_menu():
             print("\nInvalid choice. Please try again.")
             input("\nPress Enter to continue...")
 
+def check_and_install_dependencies():
+    """Ensure all dependencies from requirements.txt are installed."""
+    req_file = os.path.join(os.path.dirname(__file__), 'requirements.txt')
+    if os.path.exists(req_file):
+        print("Checking and installing dependencies...")
+        try:
+            import subprocess
+            subprocess.run(
+                [sys.executable, "-m", "pip", "install", "-q", "-r", req_file],
+                check=True
+            )
+        except Exception as e:
+            print(f"Warning: Failed to ensure dependencies are installed: {e}")
+
 
 if __name__ == "__main__":
+    check_and_install_dependencies()
     main_menu()
