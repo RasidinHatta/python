@@ -2,6 +2,7 @@ import os
 import shutil
 import subprocess
 import tempfile
+import zipfile
 
 def get_exo_sort_key(filename):
     parts = filename.split(".")
@@ -41,6 +42,21 @@ def get_subtitle_file(target_dir):
     subtitle_path = os.path.join(target_dir, subtitle_files[0])
     print(f"Found subtitle file: {subtitle_path}")
     return subtitle_path
+
+def convert_subtitle_to_srt(subtitle_file, output_video_file):
+    if not subtitle_file:
+        return None
+
+    srt_file = os.path.splitext(output_video_file)[0] + ".srt"
+    print(f"Creating SRT subtitle file: {srt_file}")
+
+    with open(subtitle_file, "r", encoding="utf-8-sig") as infile:
+        subtitle_text = infile.read()
+
+    with open(srt_file, "w", encoding="utf-8") as outfile:
+        outfile.write(subtitle_text)
+
+    return srt_file
 
 def merge_exo_files(target_dir, output_file, exo_files=None):
     if exo_files is None:
@@ -155,11 +171,30 @@ def create_mp4_with_ffmpeg(target_dir, output_file, exo_files, subtitle_file=Non
         if os.path.exists(concat_path):
             os.remove(concat_path)
 
+def create_output_zip(output_video_file, subtitle_file=None):
+    if not os.path.exists(output_video_file):
+        print("\nSkipping zip creation because the MP4 output was not created.")
+        return False
+
+    zip_file = os.path.splitext(output_video_file)[0] + ".zip"
+    print(f"\nCreating zip archive: {zip_file}")
+
+    with zipfile.ZipFile(zip_file, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+        archive.write(output_video_file, arcname=os.path.basename(output_video_file))
+
+        if subtitle_file and os.path.exists(subtitle_file):
+            archive.write(subtitle_file, arcname=os.path.basename(subtitle_file))
+
+    print(f"Successfully created zip archive: {zip_file}")
+    return True
+
 def main():
     print("\n--- Merge .exo Video Files ---")
     script_dir = os.path.dirname(os.path.abspath(__file__))
     project_dir = os.path.dirname(script_dir)
     movie_dir = os.path.join(project_dir, "movie")
+    output_dir = os.path.join(project_dir, "output", "movie")
+    os.makedirs(output_dir, exist_ok=True)
     
     output_filename = input("Enter output file name (e.g., merged.mp4) [Default: merged.mp4]: ").strip()
     if not output_filename:
@@ -168,12 +203,14 @@ def main():
     if not output_filename.lower().endswith(".mp4"):
         output_filename += ".mp4"
         
-    output_path = os.path.join(movie_dir, output_filename)
+    output_path = os.path.join(output_dir, output_filename)
     exo_files = get_exo_files(movie_dir)
     subtitle_file = get_subtitle_file(movie_dir)
+    subtitle_file = convert_subtitle_to_srt(subtitle_file, output_path)
 
     if exo_files:
-        create_mp4_with_ffmpeg(movie_dir, output_path, exo_files, subtitle_file)
+        if create_mp4_with_ffmpeg(movie_dir, output_path, exo_files, subtitle_file):
+            create_output_zip(output_path, subtitle_file)
 
 if __name__ == "__main__":
     main()
