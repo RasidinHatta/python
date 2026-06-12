@@ -45,7 +45,7 @@ def trim_video(input_path, output_path, start_time, end_time):
     
     # Trim the video
     print(f"\nTrimming video from {start_time:.2f}s to {end_time:.2f}s...")
-    trimmed_video = video.subclipped(start_time, end_time)
+    trimmed_video = video.subclip(start_time, end_time)
     
     # Write the result
     print(f"Saving trimmed video to: {output_path}")
