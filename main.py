@@ -5,6 +5,7 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), 'video_programs'))
 sys.path.append(os.path.join(os.path.dirname(__file__), 'audio_programs'))
 sys.path.append(os.path.join(os.path.dirname(__file__), 'math_programs'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'document_programs'))
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -131,6 +132,45 @@ def math_menu():
             input("\nPress Enter to continue...")
 
 
+def document_menu():
+    # Ensure output directory exists
+    if not os.path.exists('documents'):
+        os.makedirs('documents')
+        
+    while True:
+        clear_screen()
+        print("=" * 60)
+        print("        DOCUMENT PROCESSING TOOLKIT")
+        print("=" * 60)
+        print("\nSelect a tool to run:")
+        print("  1. 📄 PDF Merger")
+        print("  2. ✂️  PDF Page Remover")
+        print("  3. 🔙 Return to Main Menu")
+        print("\n" + "=" * 60)
+        
+        choice = input("\nEnter choice (1-3): ").strip()
+        
+        try:
+            if choice == '1':
+                import pdf_merger  # type: ignore
+                pdf_merger.main()
+            elif choice == '2':
+                import pdf_editor  # type: ignore
+                pdf_editor.main()
+            elif choice == '3':
+                break
+            else:
+                print("\nInvalid choice. Please try again.")
+            
+            input("\nPress Enter to continue...")
+            
+        except ImportError as e:
+            print(f"\n❌ Error: Could not load the tool. {e}")
+            input("\nPress Enter to continue...")
+        except Exception as e:
+            print(f"\n❌ An unexpected error occurred: {e}")
+            input("\nPress Enter to continue...")
+
 def main_menu():
     while True:
         clear_screen()
@@ -141,10 +181,11 @@ def main_menu():
         print("  1. 📹 Video Programs")
         print("  2. 🎧 Audio Programs")
         print("  3. 🧮 Math Programs")
-        print("  4. ❌ Exit")
+        print("  4. 📄 Document Programs")
+        print("  5. ❌ Exit")
         print("\n" + "=" * 60)
         
-        choice = input("\nEnter choice (1-4): ").strip()
+        choice = input("\nEnter choice (1-5): ").strip()
         
         if choice == '1':
             video_menu()
@@ -153,6 +194,8 @@ def main_menu():
         elif choice == '3':
             math_menu()
         elif choice == '4':
+            document_menu()
+        elif choice == '5':
             print("\nGoodbye!")
             sys.exit(0)
         else:

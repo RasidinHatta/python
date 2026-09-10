@@ -3,6 +3,7 @@ videos/
 audio/
 downloads/
 movie/
+documents/
 
 # Python
 __pycache__/
